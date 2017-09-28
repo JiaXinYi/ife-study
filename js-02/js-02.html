@@ -1,0 +1,109 @@
+<!-- 学习JavaScript中的if判断语法，for循环语法
+学习JavaScript中的数组对象
+学习如何读取、处理数据，并动态创建、修改DOM中的内容 -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>IFE JavaScript Task 01</title>
+</head>
+
+<body>
+
+	<h3>污染城市列表</h3>
+	<ul id="aqi-list">
+		<!--   
+    <li>第一名：福州（样例），10</li>
+      <li>第二名：福州（样例），10</li> -->
+	</ul>
+	<script src="../jx-co.js"></script>
+	<script type="text/javascript">
+		var aqiData = [
+			["北京", 90],
+			["上海", 50],
+			["福州", 10],
+			["广州", 50],
+			["成都", 90],
+			["西安", 100]
+		];
+
+		(function () {
+
+			/*
+			在注释下方编写代码
+			遍历读取aqiData中各个城市的数据
+			将空气质量指数大于60的城市显示到aqi-list的列表中
+			*/
+			var list = document.getElementById('aqi-list');
+			var listArray = new Array();
+			var listLength = aqiData.length;
+			// console.log(aqiData[1]);
+			// console.log(aqiData[1][0]);
+			// console.log(aqiData[1][1]);
+
+			// var 使用方法
+			var indx = 0;
+			for (var i = 0; i < listLength; i++) {
+				if (aqiData[i][1] > 60) {
+					listArray[indx] = aqiData[i];
+					indx++;
+				};
+			}
+			// console.log(i);//6
+
+			// let使用方法
+			// 获取二位数组里下标第二位值大于60的一维数组
+			// 数组长度有问题，所以要用另一个变量
+			// for (let indx = 0; indx < listLength; indx++) {
+			// 	if (aqiData[indx][1] > 60) {
+			// 		listArray[indx] = aqiData[indx];
+			// 	};
+			// }
+			// 二维数组
+			// 降序排列
+			// var desSort = function (x, y) {
+			// 	return y[1] - x[1];
+			// }
+			// 升序排列
+			// var asSort = function (x, y) {
+			// 	return x - y;
+			// }
+
+			// 得到降序排列数组
+			// listArray.sort(desSort);
+			// 使用代码库，传入参数type为2，表示2维数组
+			listArray.sort(jxCo.dyadicArraySort(2)).reverse();
+			var listArrayLength = listArray.length;
+			console.log(listArray);
+
+			// reverse函数
+			// listArray.reverse();
+
+			// 一维数组排序
+			// var ar = [1, 5, 68, 52, 4, 2, 6, 22];
+			// ar.sort();
+			// console.log(ar); //[1, 2, 22, 4, 5, 52, 6, 68]
+			// ar.sort(function (x, y) {
+			// 	return x - y;
+			// });
+			// console.log(ar); //[1, 2, 4, 5, 6, 22, 52, 68]
+			// console.log(ar.sort(desSort));
+
+
+			// 输出数组
+			for (var i = 0; i < listArrayLength; i++) {
+				// 方法一
+				list.innerHTML += "<li>第 " + (i + 1) + " 名：" + listArray[i][0] + "，污染指数：" + listArray[i][1] + "</li>";
+				// 方法二
+				// var listItem = document.createElement("li");
+				// listItem.innerHTML = "第" + (i + 1) + '名 : ' + listArray[i];
+				// list.appendChild(listItem);
+			}
+
+		})();
+	</script>
+</body>
+
+</html>
