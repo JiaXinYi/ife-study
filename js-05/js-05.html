@@ -1,14 +1,8 @@
-<!-- 
-模拟一个队列，队列的每个元素是一个数字，初始队列为空
-有一个input输入框，以及4个操作按钮
-
-点击"左侧入"，将input中输入的数字从左侧插入队列中；
-点击"右侧入"，将input中输入的数字从右侧插入队列中；
-点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
-点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
-点击队列中任何一个元素，则该元素会被从队列中删除 
--->
-<!-- 对比querySelectorAll 和getElementsBy -->
+<!-- 基于上一任务
+限制输入的数字在10-100
+队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+队列展现方式变化如图，直接用高度表示数字大小
+实现一个简单的排序功能，如冒泡排序（不限制具体算法），用可视化的方法表达出来 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +20,7 @@
 
 		</ul>
 	</div>
-	<input type="text" placeholder="请输入一个数字" id="list-input">
+	<input type="text" placeholder="请输入一个数字,10-100之间" id="list-input">
 	<button id="left-in">左侧入</button>
 	<button id="right-in">右侧入</button>
 	<button id="left-out">左侧出</button>
@@ -39,28 +33,34 @@
 		var listArray = document.getElementById('list-array');
 		var input = document.getElementById('list-input');
 
+
 		var leftPush = function () {
 			var num = input.value;
-			if (num == "") {
-				console.log("未输入");
-			} else {
-				if (!isNaN(num)) {
-					var numLi = document.createElement('li');
-					numLi.innerHTML = num;
-					listArray.appendChild(numLi);
-					// input.value="";
-				} else {
-					console.log("输入错误")
-				}
-			}
+			var count = listArray.childElementCount;
 
+			if (count <= 10) {
+				if (num == "") {
+					console.log("未输入");
+				} else {
+					if (!isNaN(num) && num <= 100 && num >= 10) {
+						var numLi = document.createElement('li');
+						numLi.innerHTML = num;
+						listArray.appendChild(numLi);
+						// input.value="";
+					} else {
+						console.log("输入错误")
+					}
+				}
+			} else {
+				alert(num);
+			}
 		}
 		var rightPush = function () {
 			var num = input.value;
 			if (num == "") {
 				console.log("未输入");
 			} else {
-				if (!isNaN(num)) {
+				if (!isNaN(num) && num <= 100 && num >= 10) {
 					var numLi = document.createElement('li');
 					numLi.innerHTML = num;
 					listArray.insertBefore(numLi, listArray.firstChild);
