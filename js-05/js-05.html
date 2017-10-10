@@ -11,6 +11,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<style>
+		ul {
+			cursor: pointer;
+		}
+
+		ul li {
+			display: inline-block;
+			background-color: red;
+			width: 20px;
+			list-style: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -25,6 +37,8 @@
 	<button id="right-in">右侧入</button>
 	<button id="left-out">左侧出</button>
 	<button id="right-out">右侧出</button>
+	<button id="sort">排序</button>
+
 	<script>
 		var leftIn = document.getElementById('left-in');
 		var rightIn = document.getElementById('right-in');
@@ -33,64 +47,77 @@
 		var listArray = document.getElementById('list-array');
 		var input = document.getElementById('list-input');
 
-
-		var leftPush = function () {
+		function queueIn(obj) {
 			var num = input.value;
 			var count = listArray.childElementCount;
-
-			if (count <= 10) {
-				if (num == "") {
-					console.log("未输入");
-				} else {
-					if (!isNaN(num) && num <= 100 && num >= 10) {
-						var numLi = document.createElement('li');
-						numLi.innerHTML = num;
-						listArray.appendChild(numLi);
-						// input.value="";
-					} else {
-						console.log("输入错误")
-					}
-				}
-			} else {
-				alert(num);
+			if (count > 10) {
+				console.log("数量达到最大，不予显示");
+				return 0;
 			}
-		}
-		var rightPush = function () {
-			var num = input.value;
 			if (num == "") {
 				console.log("未输入");
+				return 0;
+			}
+			if (isNaN(num) && num > 100 && num < 10) {
+				console.log("输入错误");
+				return 0;
+			}
+			var numLi = document.createElement('li');
+			if (obj.id == "left-in") {
+				listArray.insertBefore(numLi, listArray.firstChild);
 			} else {
-				if (!isNaN(num) && num <= 100 && num >= 10) {
-					var numLi = document.createElement('li');
-					numLi.innerHTML = num;
-					listArray.insertBefore(numLi, listArray.firstChild);
-					// input.value="";
-				} else {
-					console.log("输入错误")
-				}
+				listArray.appendChild(numLi);
+			}
+			numLi.style.height = num + "px";
+		}
+
+		var leftPop = function () {
+			if (!listArray.children[0]) {
+				console.log("已为空");
+				return 0;
+			} else {
+				var leftFirst = listArray.firstChild;
+				alert(parseInt(leftFirst.style.height));
+				listArray.removeChild(leftFirst);
 			}
 
 		}
-		var leftPop = function () {
-			var leftFirst = listArray.firstChild;
-			alert(leftFirst.innerHTML);
-			listArray.removeChild(leftFirst);
-		}
 		var rightPop = function () {
-			var rightFirst = listArray.lastChild;
-			alert(rightFirst.innerHTML);
-			listArray.removeChild(rightFirst);
+			if (!listArray.children[listArray.children.length - 1]) {
+				console.log("已为空");
+				return 0;
+			} else {
+				var rightFirst = listArray.lastChild;
+				alert(parseInt(rightFirst.style.height));
+				listArray.removeChild(rightFirst);
+			}
+
 		}
-		leftIn.onclick = leftPush;
-		rightIn.onclick = rightPush;
+		leftIn.onclick = function () {
+			queueIn(this);
+		};
+		rightIn.onclick = function () {
+			queueIn(this);
+		};
 		leftOut.onclick = leftPop;
 		rightOut.onclick = rightPop;
 		// 事件代理，对li的父级标签绑定事件。
-		listArray.addEventListener("click", function (e) {
-			if (event.target.nodeName.toLowerCase() == "li") {
-				listArray.removeChild(event.target);
+		// listArray.addEventListener("click", function (e) {
+		// 	if (event.target.nodeName.toLowerCase() == "li") {
+		// 		listArray.removeChild(event.target);
+		// 	}
+		// })
+		var li = listArray.getElementsByTagName("li");
+		listArray.onmousemove = function () {
+			for (var i in li) {
+				li[i].index = i;
+				li[i].onclick = function () {
+					num = parseInt(listArray.children[this.index].style.height);
+					alert(num);
+					listArray.removeChild(listArray.children[this.index]);
+				}
 			}
-		})
+		}
 	</script>
 </body>
 
