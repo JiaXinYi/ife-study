@@ -14,6 +14,7 @@
 	<style>
 		ul {
 			cursor: pointer;
+
 		}
 
 		ul li {
@@ -46,6 +47,7 @@
 		var rightOut = document.getElementById('right-out');
 		var listArray = document.getElementById('list-array');
 		var input = document.getElementById('list-input');
+		var sortBtn = document.getElementById('sort');
 
 		function queueIn(obj) {
 			var num = input.value;
@@ -70,7 +72,12 @@
 			}
 			numLi.style.height = num + "px";
 		}
-
+		leftIn.onclick = function () {
+			queueIn(this);
+		};
+		rightIn.onclick = function () {
+			queueIn(this);
+		};
 		var leftPop = function () {
 			if (!listArray.children[0]) {
 				console.log("已为空");
@@ -93,20 +100,38 @@
 			}
 
 		}
-		leftIn.onclick = function () {
-			queueIn(this);
-		};
-		rightIn.onclick = function () {
-			queueIn(this);
-		};
+		var sortList = function () {
+			var count = listArray.childElementCount;
+			var nums = [];
+			if (count < 2) {
+				console.log("请先输入两个以上的数");
+				return 0;
+			}
+
+			for (var i = 0; i < count; i++) {
+				var num = parseInt(listArray.children[i].style.height);
+				nums.push(num);
+			}
+			console.log(nums);			
+			nums.sort(sortType.dyadicArraySort(1));
+
+			for(var i = 0; i < count; i++){
+				listArray.children[i].style.height = nums[i]+"px";
+			}
+			console.log(nums);
+
+		}
+
 		leftOut.onclick = leftPop;
 		rightOut.onclick = rightPop;
+		sortBtn.onclick = sortList;
 		// 事件代理，对li的父级标签绑定事件。
 		// listArray.addEventListener("click", function (e) {
 		// 	if (event.target.nodeName.toLowerCase() == "li") {
 		// 		listArray.removeChild(event.target);
 		// 	}
 		// })
+
 		var li = listArray.getElementsByTagName("li");
 		listArray.onmousemove = function () {
 			for (var i in li) {
@@ -117,6 +142,28 @@
 					listArray.removeChild(listArray.children[this.index]);
 				}
 			}
+		}
+
+		var sortType = {
+			// 内置排序方法sort(function(x,y){return x-y})的参数部分：升序排序
+			dyadicArraySort: function (x, y, type) {
+				switch (type) {
+					case 1:
+						return x - y;
+					case 2:
+						return x[1] - y[1];
+				}
+			},
+			bubbleSort: function () {
+
+			},
+			selectionSort: function () {
+
+			},
+			insertionSort: function () {
+
+			}
+
 		}
 	</script>
 </body>
