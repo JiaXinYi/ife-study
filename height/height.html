@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .div1 {
+            background-color: blueviolet;
+            position: relative;
+        }
+
+        .div2 {
+            font-size: 30px;    
+            color: white;
+            text-align: center;                    
+            width: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%)  translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div style="width:100%;height:100%;">width:100%;height:100%;</div> -->
+    <div style="height:100%;" class="div1">
+        <div class="div2">height:100%;</div>
+    </div>
+    <!-- <div style="width:100%;height:200px;">width:100%;height:200px;</div> -->
+</body>
+
+</html>

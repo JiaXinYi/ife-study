@@ -1,0 +1,90 @@
+<!-- 基于任务四进行升级
+将新元素输入框从input改为textarea
+允许一次批量输入多个内容，格式可以为数字、中文、英文等，
+可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔
+增加一个查询文本输入框，和一个查询按钮，
+当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。
+举例，内容中有abcd，查询词为ab或bc，则该内容需要标识 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.item {
+			display: inline-block;
+			padding: 10px;
+			margin: 5px;
+			font-size: 20px;
+			background-color: #fff;
+			color: #f00;
+			border: 1px solid #f00;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<span>结果：</span>
+	<br>
+	
+	<div id="box">
+	</div>
+	<textarea name="" id="list-input" cols="30" rows="10"></textarea>
+
+	<br>
+	<button id="right-in">插入</button>
+	<br>
+	<hr>
+	<button id="search-btn">搜索:</button>
+	<input type="text" placeholder="请输入搜索内容" id="search-input">
+	<script>
+		var rightIn = document.getElementById('right-in');
+		var input = document.getElementById('list-input');
+		var textBox = document.getElementById("box");
+		var search = document.getElementById("search-btn");
+		var searchText = document.getElementById("search-input");
+		var rightPush = function () {
+			var num = input.value;
+			if (num == "") {
+				console.log("未输入");
+			} else {
+				var spanText = document.createElement('span');
+				spanText.setAttribute("class", "item")
+				spanText.innerHTML = num;
+				textBox.appendChild(spanText);
+				// input.value="";
+			}
+		}
+		var goSearch = function () {
+			if (searchText == "") {
+				console.log("请输入");
+			} else {
+				var textNodes = textBox.childNodes;
+				var length = textNodes.length;
+				for (var i = 0; i < length; i++) {
+					var textNode = textNodes[i];
+					var textStr = textNode.innerText;
+					console.log(textStr);
+
+					if (textStr.indexOf(searchText) > -1) {
+						textNode.style.backgroundColor = "#f00";
+						textNode.style.Color = "#fff";
+					} else {
+						textNode.style.backgroundColor = "#fff";
+						textNode.style.Color = "#f00";
+					}
+				}
+			}
+
+		}
+
+		rightIn.onclick = rightPush;
+		search.onclick = goSearch;
+	</script>
+</body>
+
+</html>
