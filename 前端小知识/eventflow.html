@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" id="box0">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js事件流</title>
+	<style>
+		.box {
+			width: 60%;
+			margin: 50px auto;
+			background-color: #fff;
+			border: 1px solid #42069b;
+		}
+
+		html,
+		body {
+			width: 100%;
+			/* height: 700px; */
+			background-color: #ff8080 !important;
+		}
+
+		.box #box1 {
+			width: 600px;
+			height: 600px;
+		}
+
+		.box #box2 {
+			width: 500px;
+			height: 500px;
+		}
+
+		.box #box3 {
+			width: 400px;
+			height: 400px;
+		}
+
+		.box #box4 {
+			width: 300px;
+			height: 300px;
+		}
+
+		.box #box5 {
+			width: 200px;
+			height: 200px;
+		}
+
+		.box #box6 {
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+		}
+
+		.box#box1.current {
+			background-color: #009966;
+		}
+
+		.box#box2.current {
+			background-color: #006699;
+		}
+
+		.box#box3.current {
+			background-color: rosybrown;
+		}
+
+		.box#box4.current {
+			background-color: blueviolet;
+		}
+
+		.box#box5.current {
+			background-color: crimson;
+		}
+
+		.box#box6.current {
+			background-color: darkorange;
+		}
+
+		.btns {
+			width: 60%;
+			text-align: center;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box" id="box1">
+		<div class="box" id="box2">
+			<div class="box" id="box3">
+				<div class="box" id="box4">
+					<div class="box" id="box5">
+						<div class="box" id="box6">
+							点击触发目标
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="currentBox"></div>
+	<script>
+		// 间隔时间
+		var pause = 2000,
+			// 添加类名来添加背景色
+			curClass = "current",
+			// 显示提示信息
+			currentBox = document.getElementById('currentBox');
+		// 通过id依次监听点击事件并触发doCurrent
+		for (var i = 0; i < 7; i++) {
+			var _temp = document.getElementById('box' + i);
+			// addEventListener有三个参数
+			// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+			// 第二个参数是事件触发后调用的函数。
+			// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+			_temp.addEventListener('click', doCurrent, true);
+			_temp.addEventListener('click', doCurrent, false);
+		}
+		// 判断事件的属性
+		function doCurrent(event) {
+			//累加的添加样式延时事件,2000的累加
+			// || 或运算符 算前一个表达式，为ture则返回该表达式的值，为false执行后一个表达式
+			// 这里event.timeout为undefined，+运算会导致其转换为NaN，NaN+任何数字都为NaN,所以第一次返回0,后面都在0的基础依次加2000；
+			var ms = event.timeout = (event.timeout + pause) || 0;
+			// 0 2000 4000 ...
+			//当前事件触发的div
+			var target = event.currentTarget;
+			//通过判断事件的event.eventPhase属性返回事件传播的当前阶段
+			//1：捕获阶段、2：正常事件派发和3：起泡阶段。
+			//得到当前阶段和触发div对象
+			var msg = (event.eventPhase == 1 ? '捕获阶段：' : '冒泡阶段：') + target.attributes["id"].value;
+
+			//延时函数
+			setTimeout(function () {
+				// 在currentBox和控制台中显示信息
+				currentBox.innerHTML = msg;
+				console.log(msg);
+				//为该div添加class
+				target.classList.add(curClass);
+				setTimeout(function () {
+					//内部恒定2s后为该div移除class
+					target.classList.remove(curClass);
+				}, pause);
+
+			}, ms);
+		}
+	</script>
+</body>
+
+</html>
