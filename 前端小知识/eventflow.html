@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="box0">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
@@ -77,45 +77,93 @@
 			background-color: darkorange;
 		}
 
-		.btns {
-			width: 60%;
-			text-align: center;
-			margin: 0 auto;
+		.btn {
+			float: left;
 		}
 	</style>
 </head>
 
 <body>
+	<div>
+		<h4 id="currentBox">点击按钮设置类型后再点击中心</h4>
+		<button class="btn" id="btnCapture" onclick="setCapture()">设置捕获</button>
+		<button class="btn" id="btnBubble" onclick="setBubble()">设置冒泡</button>
+		<button class="btn" id="btnAll" onclick="setAll()">设置捕获和冒泡</button>
+		<button class="btn" onclick="clearAll()">动画完成后再清除设置</button>
+	</div>
 	<div class="box" id="box1">
 		<div class="box" id="box2">
 			<div class="box" id="box3">
 				<div class="box" id="box4">
 					<div class="box" id="box5">
 						<div class="box" id="box6">
-							点击触发目标
+							点击
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="currentBox"></div>
+
 	<script>
 		// 间隔时间
 		var pause = 2000,
 			// 添加类名来添加背景色
 			curClass = "current",
 			// 显示提示信息
-			currentBox = document.getElementById('currentBox');
-		// 通过id依次监听点击事件并触发doCurrent
-		for (var i = 0; i < 7; i++) {
-			var _temp = document.getElementById('box' + i);
-			// addEventListener有三个参数
-			// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
-			// 第二个参数是事件触发后调用的函数。
-			// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
-			_temp.addEventListener('click', doCurrent, true);
-			_temp.addEventListener('click', doCurrent, false);
+			currentBox = document.getElementById('currentBox'),
+			// 按钮
+			btnCapture = document.getElementById('btnCapture'),
+			btnBubble = document.getElementById('btnBubble');
+		btnAll = document.getElementById('btnAll');
+
+		// 设置捕获
+		function setCapture() {
+			//取消事件监听
+			clearAll();
+			setBtnDisabled(true);
+			// 通过id依次监听点击事件并触发doCurrent
+			for (var i = 1; i < 7; i++) {
+				var _temp = document.getElementById('box' + i);
+				// addEventListener有三个参数
+				// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+				// 第二个参数是事件触发后调用的函数。
+				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+				_temp.addEventListener('click', doCurrent, true);
+			}
+		}
+		//设置冒泡
+		function setBubble() {
+			//取消事件监听
+			clearAll();
+			setBtnDisabled(true);
+			// 通过id依次监听点击事件并触发doCurrent
+			for (var i = 1; i < 7; i++) {
+				var _temp = document.getElementById('box' + i);
+				// addEventListener有三个参数
+				// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+				// 第二个参数是事件触发后调用的函数。
+				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+				_temp.addEventListener('click', doCurrent, false);
+			}
+		}
+
+		function setAll() {
+			//取消事件监听
+			clearAll();
+			setBtnDisabled(true);
+			// 通过id依次监听点击事件并触发doCurrent
+			for (var i = 1; i < 7; i++) {
+				var _temp = document.getElementById('box' + i);
+				// addEventListener有三个参数
+				// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+				// 第二个参数是事件触发后调用的函数。
+				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+				_temp.addEventListener('click', doCurrent, false);
+				_temp.addEventListener('click', doCurrent, true);
+				
+			}
 		}
 		// 判断事件的属性
 		function doCurrent(event) {
@@ -144,6 +192,40 @@
 				}, pause);
 
 			}, ms);
+		}
+		//取消事件监听
+		function clearAll() {
+			setBtnDisabled(false);
+			clearCapture();
+			clearBubble();
+		}
+		//取消事件监听
+		function clearCapture() {
+			for (var i = 1; i < 7; i++) {
+				var _temp = document.getElementById('box' + i);
+				// addEventListener有三个参数
+				// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+				// 第二个参数是事件触发后调用的函数。
+				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+				_temp.removeEventListener('click', doCurrent, true);
+			}
+		}
+		//取消事件监听
+		function clearBubble() {
+			for (var i = 1; i < 7; i++) {
+				var _temp = document.getElementById('box' + i);
+				// addEventListener有三个参数
+				// 第一个参数是事件的类型 (如 "click" 或 "mousedown").
+				// 第二个参数是事件触发后调用的函数。
+				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
+				_temp.removeEventListener('click', doCurrent, false);
+			}
+		}
+		//按钮设置不可点击
+		function setBtnDisabled(status) {
+			btnCapture.disabled = status;
+			btnBubble.disabled = status;
+			btnAll.disabled = status;
 		}
 	</script>
 </body>
