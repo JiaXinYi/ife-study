@@ -115,8 +115,8 @@
 			currentBox = document.getElementById('currentBox'),
 			// 按钮
 			btnCapture = document.getElementById('btnCapture'),
-			btnBubble = document.getElementById('btnBubble');
-		btnAll = document.getElementById('btnAll');
+			btnBubble = document.getElementById('btnBubble'),
+			btnAll = document.getElementById('btnAll');
 
 		// 设置捕获
 		function setCapture() {
@@ -162,7 +162,7 @@
 				// 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。ture为捕获，false为冒泡
 				_temp.addEventListener('click', doCurrent, false);
 				_temp.addEventListener('click', doCurrent, true);
-				
+
 			}
 		}
 		// 判断事件的属性

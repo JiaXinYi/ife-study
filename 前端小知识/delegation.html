@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>事件委托</title>
+</head>
+
+<body>
+	<button id="btnAdd">添加</button>
+	<ul id="ulList">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	<script>
+		var btnAdd = document.getElementById('btnAdd');
+		var ulList = document.getElementById('ulList');
+		var list = document.getElementsByTagName('li');
+		var num = 3;
+
+		ulList.onclick = function(event){
+			var event = event || window.event;
+			var target = event.target || event.srcElement;
+			if(target.nodeName.toLowerCase() == 'li'){
+				alert(target.innerHTML);
+			}
+		}
+
+		btnAdd.onclick = function () {
+			num++;
+			var li = document.createElement('li');
+			li.innerHTML = num;
+			ulList.appendChild(li);
+			doclick();
+		}
+	</script>
+</body>
+
+</html>
