@@ -18,13 +18,12 @@
 	<script>
 		var btnAdd = document.getElementById('btnAdd');
 		var ulList = document.getElementById('ulList');
-		var list = document.getElementsByTagName('li');
 		var num = 3;
 
-		ulList.onclick = function(event){
+		ulList.onclick = function (event) {
 			var event = event || window.event;
 			var target = event.target || event.srcElement;
-			if(target.nodeName.toLowerCase() == 'li'){
+			if (target.nodeName.toLowerCase() == 'li') {
 				alert(target.innerHTML);
 			}
 		}
@@ -34,7 +33,6 @@
 			var li = document.createElement('li');
 			li.innerHTML = num;
 			ulList.appendChild(li);
-			doclick();
 		}
 	</script>
 </body>
