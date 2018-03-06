@@ -64,11 +64,21 @@
 			// 将地址解析结果显示在地图上,并调整地图视野
 			myGeo.getPoint(searchVal, function (point) {
 				if (point) {
-					var myPoint = coordtransform.bd09togcj02(point.lat,point.lng);
-					var myPoint2 = coordtransform.gcj02towgs84(myPoint[0],myPoint[1]);
+					console.log(point);
+					// bd09->gcj02
+					var myPoint = coordtransform.bd09togcj02(point.lng, point.lat);
 					console.log(myPoint);
-					L.marker(myPoint2).addTo(mymap);
-					mymap.setView([point.lat,point.lng],16);
+					// gcj02->wgs84
+					var myPoint2 = coordtransform.gcj02towgs84(myPoint[0], myPoint[1]);
+					console.log(myPoint2);
+					var latlng = L.latLng([myPoint[1], myPoint[0]]);
+					var latlng2 = L.latLng([myPoint2[1], myPoint2[0]]);
+					// 画点
+					L.marker(point).addTo(mymap);
+					L.marker(latlng).addTo(mymap);
+					L.marker(latlng2).addTo(mymap);
+					// 设置中心
+					mymap.setView([point.lat, point.lng], 13);
 				} else {
 					alert("您选择地址没有解析到结果!");
 				}
