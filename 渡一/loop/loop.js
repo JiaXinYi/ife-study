@@ -56,13 +56,12 @@ function doFn5() {
 function doFn6() {
     var result = [];
     for (var n = 1; n < 100; n++) {
-        result.push(n);                        
+        result.push(n);
         for (var i = 2; i < n - 1; i++) {
             if (n % i == 0) {
-                result.pop(n);                                
+                result.pop(n);
                 break;
-            } else {
-            }
+            } else {}
         }
 
     }
@@ -71,8 +70,8 @@ function doFn6() {
 }
 
 // 壹贰叁肆伍陆柒捌玖拾佰仟万
-function doFn4(){
+function doFn4() {
     var n = document.getElementById('number8').value;
-    
+
 
 }
