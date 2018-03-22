@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.dragdiv {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="dragdiv"></div>
+	<script>
+		var div = document.getElementsByTagName('div')[0];
+		var disX, disY;
+
+		div.onmousedown = function (e) {
+			var e = e || window.event;
+			// disX = e.pageX - parseInt(div.style.left);
+			// disY = e.pageY - parseInt(div.style.top);
+
+			document.onmousemove = function (e) {
+				var e = e || window.event;
+				div.style.left = e.pageX - 100 + "px";
+				div.style.top = e.pageY - 100 + "px";
+			}
+			document.onmouseup = function () {
+				document.onmousemove = null;
+			}
+		}
+		function drag(elem){
+
+		}
+	</script>
+</body>
+
+</html>
