@@ -1,0 +1,14 @@
+.box1{
+	width: 100px;
+	height: 100px;
+	border: 1px solid #f00;
+	margin-bottom: 10px;
+	float: left;
+}
+.box2{
+	padding:10px,20px;
+	width: 100px;
+	height: 100px;
+	float: left;
+	border: 1px solid #f00;
+}

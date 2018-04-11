@@ -26,6 +26,7 @@
 
 		div.onmousedown = function (e) {
 			var e = e || window.event;
+			// console.log(e.button);
 			// disX = e.pageX - parseInt(div.style.left);
 			// disY = e.pageY - parseInt(div.style.top);
 
@@ -38,7 +39,25 @@
 				document.onmousemove = null;
 			}
 		}
-		function drag(elem){
+		// var firstTime = 0;
+		// var lastTime = 0;
+		// var key = false;
+		// document.onmousedown = function () {
+		// 	firstTime = new Date().getTime();
+		// }
+		// document.onmouseup = function () {
+		// 	lastTime = new Date().getTime();
+		// 	if (lastTime - firstTime < 300) {
+		// 		key = true;
+		// 	}
+		// }
+		// document.onclick = function () {
+		// 	if (key) {
+		// 		console.log('click');
+		// 	}
+		// }
+
+		function drag(elem) {
 
 		}
 	</script>

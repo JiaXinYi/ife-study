@@ -1,0 +1,104 @@
+<!--
+  window.onload = function(){
+                  
+     // 鼠标移动改变背景,可以通过给每行绑定鼠标移上事件和鼠标移除事件来改变所在行背景色。
+        var tr=document.getElementsByTagName("tr");
+        for(var i=1;i<tr.length;i++){
+            bgcChange(tr[i]);
+        }
+      }
+        function bgcChange(a){
+         a.onmouseover=function(){
+            a.style.backgroundColor="#f2f2f2";   
+         }
+         a.onmouseout=function(){
+             a.style.backgroundColor="#fff";
+         }
+        }
+    function add1(){
+        var xh=prompt("请输入学号：","xh0");
+        var xm=prompt("请输入姓名：");
+        if(xh==null||xm==null){alert("输入不能为空,请重新输入！");add();}    
+        var addtr=document.createElement("tr");
+        var addxh=document.createElement("td");
+        var addxm=document.createElement("td");
+        var adddel=document.createElement("td");
+        if(xh!=null&&xm!=null){
+            addxh.innerHTML=xh;
+            addxm.innerHTML=xm;
+            adddel.innerHTML="<a href='javascript:;' onclick='del(this)'>删除</a>";
+            var tab=document.getElementById("table");
+            tab.appendChild(addtr);
+            addtr.appendChild(addxh);
+            addtr.appendChild(addxm);
+            addtr.appendChild(adddel);
+            }
+        var tr=document.getElementsByTagName("tr");
+        for(var i=1;i<tr.length;i++){
+            bgcChange(tr[i]);
+        }
+    }        
+  </script> 
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+</head>
+<body>
+    <table border="1" width="50%" id="table">
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>xh001</td>
+            <td>王小明</td>
+            <td>
+                <a href="#" onclick="del(this)">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>xh002</td>
+            <td>刘晓飞</td>
+            <td>
+                <a href="#" onclick="del(this)">删除</a>
+            </td>
+        </tr>
+    </table>
+    <input type="button" value="添加一行" onclick="add()" />
+    <script type="text/javascript">
+        
+        function del(obj){
+            if(confirm("确定要删除这条数据吗？")){
+                var deltr=obj.parentNode.parentNode;
+                deltr.parentNode.removeChild(deltr);
+                }
+        }
+        function add(){
+            var xh = prompt("请输入学号：","xh000");
+            var xm = prompt("请输入姓名");
+            if(xh==null||xm==null){
+                alert("输入不能为空，请重新输入！")；
+                add();
+            }
+            var addtr=document.createElement("tr");
+            var addxh=document.createElement("td");
+            var addxm=document.createElement("td");
+            var adddel=document.createElement("td");
+            if(xh!=null&&xm!=null){
+                addxh.innerHTML=xh;
+                addxm.innerHTML=xm;
+                adddel.innerHTML="<a href="#" onclick="del(this)">删除</a>";
+                var tab=document.getElementById("table");
+                tab.appendChild(addtr);
+                addtr.appendChild(addxh);
+                addtr.appendChild(addxm);
+                addtr.appendChild(adddel);
+            }
+        }
+    </script>
+</body>
+</html>

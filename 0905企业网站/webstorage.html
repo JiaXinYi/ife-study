@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>HTML5 Web Storage Demo</title>
+<script type="text/javascript">
+function $(id){return document.getElementById(id);}
+function savesessionStorage(id){sessionStorage.setItem('message',$(id).value);}
+function loadsessionStorage(id){$(id).innerHTML=sessionStorage.getItem('message');}
+function savelocalStorage(id){localStorage.setItem("message",$(id).value);}
+function loadlocalStorage(id){$(id).innerHTML=localStorage.getItem("message");}
+</script>
+</head>
+<body>
+<div>
+<h2>sessionStorage Demo</h2>
+<p id="sessionMsg"></p>
+<input type="text" id="sessionInput" />
+<input type="button" value="保存数据" onclick="savesessionStorage('sessionInput');" />
+<input type="button" value="读取数据" onclick="loadsessionStorage('sessionMsg');" />
+<br />
+<h2>localStorage Demo</h2>
+<p id="localMsg"></p>
+<input type="text" id="localInput" />
+<input type="button" value="保存数据" onclick="savelocalStorage('localInput');" />
+<input type="button" value="读取数据" onclick="loadlocalStorage('localMsg');" />
+</div>
+</body>
+</html>
